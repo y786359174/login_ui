@@ -82,7 +82,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         public void onReceive(Context contsext, Intent intent) {
             String content = intent.getExtras().getString(Loginstr);
             /**处理广播信息*/
-
+            TipText.setText(content);
             
             Log.i("BcastReceiver.class", "broadcast接收到:"+content);
         }
