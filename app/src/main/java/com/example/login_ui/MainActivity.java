@@ -32,16 +32,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 /** 利用application连接socket，在MainActivity初始化*/
         appUtil =  (ApplicationUtil) MainActivity.this.getApplication();  //设置为唯一application
+        appUtil.setmcontext(this);                                    //传递Context用于broadcast
         try {
+            /*********socketinit***********************/
             appUtil.SocketInit();                                         //在MainActivity进行初始化
-            appUtil.setmcontext(this);                                    //传递Context用于broadcast
             Log.i(TAG, "初始化SOCKET成功");
             SocketIsConnected=true;
+
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        appUtil.mShaerdInit();//创建SharedPreferences共享参数
 /**用于判断网络是否可用，并利用Toast弹窗提示*/
         /*ConnectivityManager connManager = (ConnectivityManager) this.getSystemService(CONNECTIVITY_SERVICE);
                // 获取代表联网状态的NetWorkInfo对象

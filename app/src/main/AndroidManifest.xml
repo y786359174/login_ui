@@ -25,11 +25,11 @@
             android:screenOrientation="landscape">
 
         </activity>
-        <receiver android:name=".LoginActivity$BcastReceiver">
+<!--        <receiver android:name=".LoginActivity$BcastReceiver">
             <intent-filter>
                 <action android:name="com.xiazdong"/>
             </intent-filter>
-        </receiver>
+        </receiver>-->
     </application>
 
 </manifest>
