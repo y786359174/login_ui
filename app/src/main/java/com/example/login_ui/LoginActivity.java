@@ -18,9 +18,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.math.BigInteger;
-import java.security.MessageDigest;
-
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "LoginActivity";
     private static final String SOCKETRCV_ACT="Socketrcv_act";
@@ -104,11 +101,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             if(Accountstr.length()>5&&Accountstr.length()<15&&Passwordstr.length()>5&&Passwordstr.length()<15) {
                 if(IsChangePassword)
                     try {
-                        PasswordstrEncrypt = encrypt(Passwordstr);
+                        PasswordstrEncrypt = ProcessString.encryptSHA256(Passwordstr);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                msgstr="loginAct$"+Accountstr+"$"+PasswordstrEncrypt;
+                msgstr=ProcessString.addstr("loginAct",Accountstr,PasswordstrEncrypt);
                 appUtil.SocketSendmsg(msgstr);
                 Log.i(TAG,"SocketSendmsg---"+msgstr);
 
@@ -129,9 +126,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             builder.setMessage("请输入6-14位的账号密码");
             builder.setPositiveButton("好的", new DialogInterface.OnClickListener() {
                 @Override
-                public void onClick(DialogInterface dialog, int which) {
-
-                }
+                public void onClick(DialogInterface dialog, int which) {}
             });
             AlertDialog alert = builder.create();
             alert.show();
@@ -226,12 +221,4 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onDestroy();
     }
 
-//对字符串进行加密
-    public static String encrypt(String str) throws Exception {
-        MessageDigest md = MessageDigest.getInstance("MD5");
-        byte[] bytes = md.digest(str.getBytes());
-        BigInteger bigInteger = new BigInteger(1, bytes);//第一个参数是符号位，-1 表示负，0 表示零，1 表示正。
-        String string = bigInteger.toString(16);//转为16进制
-        return string;
-    }
 }
