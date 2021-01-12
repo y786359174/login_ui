@@ -89,11 +89,21 @@ public class MessageTransmit implements Runnable {
                         {
                             Log.i(TAG, LoginResp);
                             Intent sendIntend = new Intent();
-                            sendIntend.setAction(SOCKETRCV_Login);
+                            sendIntend.setAction(SOCKETRCV_login);
                             sendIntend.putExtra(LoginResp, contentRcv);    //广播发送接收到的数据，让他们在后面解
                             // 发送广播，将被Activity组件中的BroadcastReceiver接收到
                             mcontext.sendBroadcast(sendIntend);
-                            Log.i(TAG, "sendbroadcast---"+contentRcv);
+//                            Log.i(TAG, "sendbroadcast---"+contentRcv);
+                        }
+                        if(rcvstrs[0].equals(RegisterResp))
+                        {
+                            Log.i(TAG, RegisterResp);
+                            Intent sendIntend = new Intent();
+                            sendIntend.setAction(SOCKETRCV_register);
+                            sendIntend.putExtra(RegisterResp, contentRcv);    //广播发送接收到的数据，让他们在后面解
+                            // 发送广播，将被Activity组件中的BroadcastReceiver接收到
+                            mcontext.sendBroadcast(sendIntend);
+//                            Log.i(TAG, "sendbroadcast---"+contentRcv);
                         }
 
                     }

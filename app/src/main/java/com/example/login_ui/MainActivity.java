@@ -12,7 +12,6 @@ import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     private static final String TAG = "MainActivity";
-    private static final String SOCKETRCV_ACT="Socketrcv_act";
     private View match_view;
     private TextView textView;
     private int threadnum = 0;

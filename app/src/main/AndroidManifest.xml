@@ -25,6 +25,10 @@
             android:screenOrientation="landscape">
 
         </activity>
+        <activity android:name="RegisterActivity"
+            android:screenOrientation="landscape">
+
+        </activity>
         <activity android:name="GameActivity"
             android:screenOrientation="landscape">
 

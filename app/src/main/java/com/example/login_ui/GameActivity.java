@@ -19,7 +19,7 @@ public class GameActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_game);
         tv_control = (TextView) findViewById(R.id.tv_control);
         tv_control.setOnClickListener(this);
         tv_control.setOnLongClickListener(this);

@@ -66,7 +66,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         /*****************************接收广播******************************/
         bcastReceiver =  new  BcastReceiver();
         filter = new IntentFilter();
-        filter.addAction(SOCKETRCV_Login);     //只有持有相同的action的接受者才能接收广播
+        filter.addAction(SOCKETRCV_login);     //只有持有相同的action的接受者才能接收广播
         registerReceiver(bcastReceiver, filter);
         Log.i(TAG,"BroadCastReceiver succeed");
         /******************************重载账号密码*************************/
@@ -97,7 +97,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         {
             String Accountstr =String.valueOf(AccountEdit.getText());
             String Passwordstr = String.valueOf(PasswordEdit.getText());
-            String msgstr="826826";
+            String msgstr="";
             if(Accountstr.length()>5&&Accountstr.length()<15&&Passwordstr.length()>5&&Passwordstr.length()<15) {
                 if(IsChangePassword)
                     try {
@@ -153,6 +153,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 IsRmbAccount=RmbActCheckBox.isChecked();
             }
         }
+        if(v.getId()==R.id.RegisterBtn) //注册
+        {
+            Intent register_intent = new Intent(LoginActivity.this, RegisterActivity.class);
+            startActivity(register_intent);
+            Log.i(TAG, "切换到RegisterActivity");
+       }
+        if(v.getId()==R.id.ForgetPasswordBtn) //忘记密码
+        {
+
+        }
+
     }
 
 
@@ -216,8 +227,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 String[] rcvstrs = ProcessString.splitstr(contentRcv);
                 if(0==Integer.valueOf(rcvstrs[1]))
                 {
-                    Intent login_intent = new Intent(LoginActivity.this, GameActivity.class);
-                    startActivity(login_intent);
+                    Intent game_intent = new Intent(LoginActivity.this, GameActivity.class);
+                    startActivity(game_intent);
                     Log.i(TAG, "切换到GameActivity");
                     finish();      //在MainActivity处理socket，不能关闭
                 }
