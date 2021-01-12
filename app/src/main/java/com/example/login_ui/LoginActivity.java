@@ -18,10 +18,10 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import static com.example.login_ui.Action.*;
+
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "LoginActivity";
-    private static final String SOCKETRCV_ACT="Socketrcv_act";
-    private static final String Loginstr="Login";
     private CheckBox RmbActCheckBox;
     private CheckBox RmbPswdCheckBox;
     private static TextView TipText;
@@ -66,7 +66,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         /*****************************接收广播******************************/
         bcastReceiver =  new  BcastReceiver();
         filter = new IntentFilter();
-        filter.addAction(SOCKETRCV_ACT);     //只有持有相同的action的接受者才能接收广播
+        filter.addAction(SOCKETRCV_Login);     //只有持有相同的action的接受者才能接收广播
         registerReceiver(bcastReceiver, filter);
         Log.i(TAG,"BroadCastReceiver succeed");
         /******************************重载账号密码*************************/
@@ -105,9 +105,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                msgstr=ProcessString.addstr("loginAct",Accountstr,PasswordstrEncrypt);
+                msgstr=ProcessString.addstr(LoginReq,Accountstr,PasswordstrEncrypt); //发送
                 appUtil.SocketSendmsg(msgstr);
-                Log.i(TAG,"SocketSendmsg---"+msgstr);
+//                Log.i(TAG,"SocketSendmsg---"+msgstr);
 
                 /***************************保存账号******************************/
                 if (!IsRmbAccount)
@@ -117,7 +117,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     PasswordstrEncrypt ="";
 
                 appUtil.mSharedSetActPswd(Accountstr,PasswordstrEncrypt);
-                Log.i(TAG,"mSharedSetActPswd---"+Accountstr+"---"+PasswordstrEncrypt);
+                TipText.setText("等待响应");
+//                Log.i(TAG,"mSharedSetActPswd---"+Accountstr+"---"+PasswordstrEncrypt);
             }
             else {
                 /*弹窗提示*/
@@ -207,12 +208,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private class BcastReceiver extends BroadcastReceiver{
 
         @Override
-        public void onReceive(Context contsext, Intent intent) {
-            String content = intent.getExtras().getString(Loginstr);
-            /**处理广播信息*/
-            TipText.setText(content);
+        public void onReceive(Context context, Intent intent) {
+            String contentRcv = intent.getExtras().getString(LoginResp);   //接收
+            Log.i(TAG, "broadcast接收到:"+contentRcv);
+            /**************************************处理广播信息***********************************************/
+            try {
+                String[] rcvstrs = ProcessString.splitstr(contentRcv);
+                if(0==Integer.valueOf(rcvstrs[1]))
+                {
+                    Intent login_intent = new Intent(LoginActivity.this, GameActivity.class);
+                    startActivity(login_intent);
+                    Log.i(TAG, "切换到GameActivity");
+                    finish();      //在MainActivity处理socket，不能关闭
+                }
+                TipText.setText(contentRcv);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             
-            Log.i("BcastReceiver.class", "broadcast接收到:"+content);
+
         }
     }
     @Override
