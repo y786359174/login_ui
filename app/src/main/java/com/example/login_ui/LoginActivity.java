@@ -225,12 +225,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             /**************************************处理广播信息***********************************************/
             try {
                 String[] rcvstrs = ProcessString.splitstr(contentRcv);
-                if(0==Integer.valueOf(rcvstrs[1]))
+                if(0==Integer.valueOf(rcvstrs[1]))                      //登录成功
                 {
+                    appUtil.playerBean.setId(Long.valueOf(rcvstrs[2]));
+                    appUtil.playerBean.setNickName(rcvstrs[3]);
                     Intent game_intent = new Intent(LoginActivity.this, GameActivity.class);
                     startActivity(game_intent);
                     Log.i(TAG, "切换到GameActivity");
-                    unregisterReceiver(bcastReceiver);
                     finish();
                 }
                 TipText.setText(contentRcv);

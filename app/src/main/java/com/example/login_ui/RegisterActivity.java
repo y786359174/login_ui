@@ -135,11 +135,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         }
     }
+    @Override
+    public void onDestroy() {
+        unregisterReceiver(bcastReceiver);
+        super.onDestroy();
+    }
     public void onClose()
     {
         Intent game_intent = new Intent(RegisterActivity.this, LoginActivity.class);
         startActivity(game_intent);
-        unregisterReceiver(bcastReceiver);
         Log.i(TAG, "切换到GameActivity");
         finish();
     }

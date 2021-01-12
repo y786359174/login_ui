@@ -19,7 +19,11 @@ public class Action {
      * 发送给LoginActivity
      */
 
-
+    public static final String SOCKETRCV_game="SOCKETRCV_game";
+    /**
+     * 广播Action
+     * 发送给GameActivity
+     */
     /*********************************数据包包头标识***************************************************/
 
     public static final String LoginReq = "LoginReq";
@@ -49,5 +53,16 @@ public class Action {
      * Eg.  LoginResp|0                 //注册成功
      * Eg.  LoginResp|1                 //账号重复
      * Eg.  LoginResp|2                 //未知的错误
+     */
+
+    public static final String SpeakOutReq = "SpeakOutReq";
+    /**
+     * 大厅发送消息请求
+     * Eg.  SpeakOutReq|NickName|SpeakOutMsg
+     */
+    public static final String SpeakOutResp = "SpeakOutResp";
+    /**
+     * 大厅接收消息响应
+     * Eg.  SpeakOutResp|NickName|SpeakOutMsg
      */
 }

@@ -17,8 +17,8 @@ import static com.example.login_ui.Action.*;
 
 public class MessageTransmit implements Runnable {
     private static final String TAG = "MessageTransmit";
-//    private static final String SOCKET_IP="101.200.125.165";// Socket服务器的IP，根据实际情况修改
-    private static final String SOCKET_IP="192.168.0.18";// Socket本机局域网的IP，根据实际情况修改
+    private static final String SOCKET_IP="101.200.125.165";// Socket服务器的IP，根据实际情况修改
+//    private static final String SOCKET_IP="192.168.0.18";// Socket本机局域网的IP，根据实际情况修改
     private static final int SOCKET_PORT = 826;// Socket服务器的端口，根据实际情况修改
     private static final int TIME_OUT = 10000;
     private Socket mSocket;
@@ -75,7 +75,7 @@ public class MessageTransmit implements Runnable {
                 //定义消息接收子线程,App从后台服务器接收消息
     private class RecvThread extends Thread {
         @Override
-            public void run(){
+        public void run(){
                 try {
                     String contentRcv = null;
                     while (null != (contentRcv = mReader.readLine())) {//读取来自服务器的数据
@@ -83,34 +83,34 @@ public class MessageTransmit implements Runnable {
 //                        msg.obj = content;
 //                        MainActivity.handler.sendMessage(msg);  //改用广播发送
                         Log.i(TAG, "SocketRecv---"+contentRcv);
-/**********************数据处理*****************************************************/
-                        String[] rcvstrs = ProcessString.splitstr(contentRcv);
-                        if(rcvstrs[0].equals(LoginResp))
-                        {
-                            Log.i(TAG, LoginResp);
-                            Intent sendIntend = new Intent();
-                            sendIntend.setAction(SOCKETRCV_login);
-                            sendIntend.putExtra(LoginResp, contentRcv);    //广播发送接收到的数据，让他们在后面解
-                            // 发送广播，将被Activity组件中的BroadcastReceiver接收到
-                            mcontext.sendBroadcast(sendIntend);
-//                            Log.i(TAG, "sendbroadcast---"+contentRcv);
-                        }
-                        if(rcvstrs[0].equals(RegisterResp))
-                        {
-                            Log.i(TAG, RegisterResp);
-                            Intent sendIntend = new Intent();
-                            sendIntend.setAction(SOCKETRCV_register);
-                            sendIntend.putExtra(RegisterResp, contentRcv);    //广播发送接收到的数据，让他们在后面解
-                            // 发送广播，将被Activity组件中的BroadcastReceiver接收到
-                            mcontext.sendBroadcast(sendIntend);
-//                            Log.i(TAG, "sendbroadcast---"+contentRcv);
-                        }
+        /**********************数据处理*****************************************************/
+                        try2sendBroadcast(LoginResp,SOCKETRCV_login,contentRcv);
+                        try2sendBroadcast(RegisterResp,SOCKETRCV_register,contentRcv);
+                        try2sendBroadcast(SpeakOutResp,SOCKETRCV_game,contentRcv);
 
                     }
                 }catch (Exception e){
                     e.printStackTrace();
                     Log.i(TAG,"receiving message failed!");
                 }
+        }
+        private void try2sendBroadcast(String resp,String SOCKETRCV,String contentRcv)
+        {
+            try {
+                String[] rcvstrs = ProcessString.splitstr(contentRcv);
+                if(rcvstrs[0].equals(resp)) {
+                    Log.i(TAG, resp);
+                    Intent sendIntend = new Intent();
+                    sendIntend.setAction(SOCKETRCV);
+                    sendIntend.putExtra(resp, contentRcv);    //广播发送接收到的数据，让他们在后面解
+                    // 发送广播，将被Activity组件中的BroadcastReceiver接收到
+                    mcontext.sendBroadcast(sendIntend);
+//                            Log.i(TAG, "sendbroadcast---"+contentRcv);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         }
     }
 

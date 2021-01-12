@@ -34,30 +34,62 @@
         android:background="#FFFFFF"
         android:layout_margin="10dp"
         android:orientation="vertical">
-        <TextView
-            android:id="@+id/tv_control"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#FFEB3B"
-            android:layout_marginTop="10dp"
-            android:gravity="top"
-            android:textSize="17sp"
-            android:text="点击展现世界真理，长按隐藏真理"
 
-            />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tv_bbs"
+            android:orientation="vertical">
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#FFFFFF"
+                android:layout_height="0dp"
+                android:layout_weight="6"
+                android:background="#FFFFFF" />
+            <TextView
+                android:id="@+id/SpeakOutText"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:background="#FDFAE2"
                 android:scrollbars="vertical"
                 android:textColor="#000000"
                 android:textSize="17sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:background="#FFFFFF"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/SpeakOutEdit"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="5"
+                        android:autofillHints="大厅"
+                        android:background="#D9FFAE"
+                        android:textSize="14sp" />
+
+                    <Button
+                        android:id="@+id/SendMsgBtn"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:background="#03A9F4"
+                        android:text="发送"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
         </LinearLayout>
     </LinearLayout>
 
@@ -74,19 +106,19 @@
             android:layout_width="150dp"
             android:layout_height="50dp"
             android:layout_margin="10dp"
-            android:background="#00ffff" />
+            android:background="#03A9F4" />
 
         <Button
             android:layout_width="150dp"
             android:layout_height="50dp"
             android:layout_margin="10dp"
-            android:background="#00ffff" />
+            android:background="#03A9F4" />
 
         <Button
             android:layout_width="150dp"
             android:layout_height="50dp"
             android:layout_margin="10dp"
-            android:background="#00ffff" />
+            android:background="#03A9F4" />
     </LinearLayout>
 </LinearLayout>
     <!--

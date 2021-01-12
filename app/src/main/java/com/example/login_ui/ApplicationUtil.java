@@ -9,6 +9,7 @@ import java.io.IOException;
 
 public class ApplicationUtil extends Application {
     private static final String TAG = "ApplicationUtil";
+    public UserBean playerBean = new UserBean();
     private MessageTransmit mTransmit;
     private Context mContext;
     private SharedPreferences mShared;
