@@ -61,10 +61,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
 
         if (v.getId()==R.id.BackBtn) {
-            Intent game_intent = new Intent(RegisterActivity.this, LoginActivity.class);
-            startActivity(game_intent);
-            Log.i(TAG, "切换到RegisterActivity");
-            finish();
+            onClose();
         }
         if (v.getId()==R.id.RegisterBtn) {
             String Nicknamestr = String.valueOf(NicknameEdit.getText());
@@ -117,10 +114,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     builder.setPositiveButton("返回登录界面", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Intent game_intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                            startActivity(game_intent);
-                            Log.i(TAG, "切换到GameActivity");
-                            finish();
+                            onClose();
                         }
                     });
                     AlertDialog alert = builder.create();
@@ -129,6 +123,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
 
                 }
+                else if(1==Integer.valueOf(rcvstrs[1]))
+                {
+                    Toast.makeText(context, "对不起，用户名已被占用，请重新输入", Toast.LENGTH_SHORT).show();
+                }
                 TipText.setText(contentRcv);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -136,5 +134,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
 
         }
+    }
+    public void onClose()
+    {
+        Intent game_intent = new Intent(RegisterActivity.this, LoginActivity.class);
+        startActivity(game_intent);
+        unregisterReceiver(bcastReceiver);
+        Log.i(TAG, "切换到GameActivity");
+        finish();
     }
 }

@@ -48,7 +48,7 @@ public class MessageTransmit implements Runnable {
 
         @Override
         public void handleMessage(Message msg) {
-            String send_msg = msg.obj.toString() + "\n"; //不知道为什么在线程中处理就会报错
+            String send_msg = msg.obj.toString() ; //不知道为什么在线程中处理就会报错
             new SendThread(send_msg).start();//不能再handler里连接服务器，必须在子线程中
         }
     };
@@ -56,7 +56,7 @@ public class MessageTransmit implements Runnable {
     private class SendThread extends Thread {
         private String msg;        //传递信息
         public SendThread (String msg){    //构造器
-            this.msg=msg;
+            this.msg=msg+"\n";
         }
         @Override
         public void run(){

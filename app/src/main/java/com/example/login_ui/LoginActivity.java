@@ -230,7 +230,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Intent game_intent = new Intent(LoginActivity.this, GameActivity.class);
                     startActivity(game_intent);
                     Log.i(TAG, "切换到GameActivity");
-                    finish();      //在MainActivity处理socket，不能关闭
+                    unregisterReceiver(bcastReceiver);
+                    finish();
                 }
                 TipText.setText(contentRcv);
             } catch (Exception e) {

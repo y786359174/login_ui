@@ -74,7 +74,6 @@ public class ProcessString {
         for (int i = 0; i < addstrs.length; i++) {
             newstr = newstr + "|" + addstrs[i].length() + "|" + addstrs[i];
         }
-        newstr=newstr+"\n";
         return newstr;
     }
 
