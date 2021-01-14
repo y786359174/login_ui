@@ -80,7 +80,16 @@ public class Action {
      * Eg.  GetFriendListResp|ID|NickName|...
      */
 
-
+    public static final String DeleteFriendListReq = "DeleteFriendListReq";
+    /**
+     * 删除好友请求
+     * Eg.  DeleteFriendListReq|ID
+     */
+    public static final String DeleteFriendListResp = "DeleteFriendListResp";
+    /**
+     * 删除好友响应
+     * Eg.  DeleteFriendListResp|deleteState
+     */
 
 
 

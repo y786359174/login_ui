@@ -34,15 +34,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 /** 利用application连接socket，在MainActivity初始化*/
         appUtil =  (ApplicationUtil) MainActivity.this.getApplication();  //设置为唯一application
         appUtil.setmcontext(this);                                    //传递Context用于broadcast
-        while(true)
         try {
             /*********socketinit***********************/
             appUtil.SocketInit();                                         //在MainActivity进行初始化
             Log.i(TAG, "初始化SOCKET成功");
             textView.setText("点击屏幕开始");
-            SocketIsConnected=true;
-            break;
-
+            SocketIsConnected = true;
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -91,6 +88,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    public boolean isSocketIsConnected() {
+        return SocketIsConnected;
+    }
+
+    public void setSocketIsConnected(boolean socketIsConnected) {
+        SocketIsConnected = socketIsConnected;
+    }
 //    /**
 //     * 实现线程有两种方法
 //     * 1.继承Thread类

@@ -14,8 +14,11 @@ public class ApplicationUtil extends Application {
     public UserBean playerBean = new UserBean();
     private MessageTransmit mTransmit;
     private Context mContext;
+
+
     private SharedPreferences mShared;
     public void SocketInit() throws IOException, Exception {
+
         mTransmit = new MessageTransmit();                                   //socket发送数据class
         new Thread(mTransmit).start();                                       //???新建Thread(mTransmit)并开始
         mTransmit.setmcontext(mContext);

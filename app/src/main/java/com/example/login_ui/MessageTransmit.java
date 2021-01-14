@@ -26,19 +26,21 @@ public class MessageTransmit implements Runnable {
     private Socket mSocket;
     private BufferedReader mReader = null;
     private static OutputStream mWriter = null;
-
+    private Context mcontext;
     @Override
     public void run() {
         mSocket = new Socket();
+        while(true)
         try {
             mSocket.connect(new InetSocketAddress(SOCKET_IP, SOCKET_PORT), TIME_OUT);
+//            mcontext.setSocketIsConnected(true);
             Log.i(TAG,"connect server succeed!\nip="+SOCKET_IP+"\nport="+SOCKET_PORT);
             mReader = new BufferedReader(new InputStreamReader(mSocket.getInputStream(),"UTF-8"));
             mWriter = mSocket.getOutputStream();
             new RecvThread().start();//启动一条子线程读取服务器的返回数据
             Looper.prepare();
             Looper.loop();
-
+            break;
         } catch (Exception e) {
             Log.i(TAG,"connect server failed!");
             e.printStackTrace();
@@ -72,7 +74,6 @@ public class MessageTransmit implements Runnable {
             }
         }
     }
-    private Context mcontext;
     public void setmcontext(Context context) { mcontext=context; }  //传递context用于sendbroadcast
                 //定义消息接收子线程,App从后台服务器接收消息
     private class RecvThread extends Thread {
@@ -89,7 +90,8 @@ public class MessageTransmit implements Runnable {
                         try2sendBroadcast(LoginResp,SOCKETRCV_login,contentRcv);
                         try2sendBroadcast(RegisterResp,SOCKETRCV_register,contentRcv);
                         try2sendBroadcast(SpeakOutResp,SOCKETRCV_game,contentRcv);
-
+                        try2sendBroadcast(GetFriendListResp,SOCKETRCV_friend,contentRcv);
+                        try2sendBroadcast(DeleteFriendListResp,SOCKETRCV_friend,contentRcv);
                     }
                 }catch (Exception e){
                     e.printStackTrace();

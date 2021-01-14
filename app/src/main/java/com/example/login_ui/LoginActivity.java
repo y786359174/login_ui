@@ -230,7 +230,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 String[] rcvstrs = ProcessString.splitstr(contentRcv);
                 if(0==Integer.valueOf(rcvstrs[1]))                      //登录成功
                 {
-                    appUtil.playerBean.setId(Long.valueOf(rcvstrs[2]));
+                    appUtil.playerBean.setId(Integer.valueOf(rcvstrs[2]));
                     appUtil.playerBean.setNickName(rcvstrs[3]);
                     Intent game_intent = new Intent(LoginActivity.this, GameActivity.class);
                     startActivity(game_intent);
