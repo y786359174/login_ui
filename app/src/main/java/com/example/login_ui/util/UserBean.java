@@ -1,4 +1,4 @@
-package com.example.login_ui;
+package com.example.login_ui.util;
 
 public class UserBean {
     private Long id;          //用户ID，不显示

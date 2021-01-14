@@ -1,9 +1,11 @@
-package com.example.login_ui;
+package com.example.login_ui.util;
 
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Message;
+
+import com.example.login_ui.MessageTransmit;
 
 import java.io.IOException;
 

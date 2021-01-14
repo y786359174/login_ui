@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.login_ui.util.ApplicationUtil;
+
 import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
@@ -23,20 +25,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.i(TAG,"onCreate");
         match_view =(View)findViewById(R.id.match_view);
         match_view.setOnClickListener(this);
         textView =(TextView)findViewById(R.id.textView);
-        textView.setText("点击屏幕开始");
-        Log.i(TAG,"succeed");
+        textView.setText("等待连接服务器");
 
 /** 利用application连接socket，在MainActivity初始化*/
         appUtil =  (ApplicationUtil) MainActivity.this.getApplication();  //设置为唯一application
         appUtil.setmcontext(this);                                    //传递Context用于broadcast
+        while(true)
         try {
             /*********socketinit***********************/
             appUtil.SocketInit();                                         //在MainActivity进行初始化
             Log.i(TAG, "初始化SOCKET成功");
+            textView.setText("点击屏幕开始");
             SocketIsConnected=true;
+            break;
 
         } catch (IOException e) {
             e.printStackTrace();

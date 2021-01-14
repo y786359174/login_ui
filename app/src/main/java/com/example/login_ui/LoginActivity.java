@@ -18,7 +18,10 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import static com.example.login_ui.Action.*;
+import com.example.login_ui.util.ApplicationUtil;
+import com.example.login_ui.util.ProcessString;
+
+import static com.example.login_ui.util.Action.*;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "LoginActivity";
@@ -45,7 +48,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        Log.i(TAG,"onCreate");
         RmbActCheckBox = (CheckBox)findViewById(R.id.RmbActCheckBox);        //记住账户checkbox设置id
         RmbActCheckBox.setOnClickListener(this);                                   //登录CheckBox设置click事件listener
         RmbPswdCheckBox = (CheckBox)findViewById(R.id.RmbPswdCheckBox);      //记住密码checkbox设置id
@@ -245,6 +248,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onDestroy() {
         unregisterReceiver(bcastReceiver);
+        Log.i(TAG,"onDestroy");
         super.onDestroy();
     }
 

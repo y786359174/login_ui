@@ -7,18 +7,20 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 
+import com.example.login_ui.util.ProcessString;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
-import static com.example.login_ui.Action.*;
+import static com.example.login_ui.util.Action.*;
 
 public class MessageTransmit implements Runnable {
     private static final String TAG = "MessageTransmit";
-    private static final String SOCKET_IP="101.200.125.165";// Socket服务器的IP，根据实际情况修改
-//    private static final String SOCKET_IP="192.168.0.18";// Socket本机局域网的IP，根据实际情况修改
+//    private static final String SOCKET_IP="101.200.125.165";// Socket服务器的IP，根据实际情况修改
+    private static final String SOCKET_IP="192.168.0.18";// Socket本机局域网的IP，根据实际情况修改
     private static final int SOCKET_PORT = 826;// Socket服务器的端口，根据实际情况修改
     private static final int TIME_OUT = 10000;
     private Socket mSocket;

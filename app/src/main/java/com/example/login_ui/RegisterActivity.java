@@ -15,7 +15,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import static com.example.login_ui.Action.*;
+
+import com.example.login_ui.util.ApplicationUtil;
+import com.example.login_ui.util.ProcessString;
+
+import static com.example.login_ui.util.Action.*;
 
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
@@ -36,6 +40,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        Log.i(TAG,"onCreate");
         TipText = (TextView)findViewById(R.id.TipText);                      //提示信息text设置id
         NicknameEdit = (EditText)findViewById(R.id.NicknameEdit);              //用户名edit设置id
         AccountEdit = (EditText)findViewById(R.id.AccountEdit);              //账户edit设置id
@@ -138,13 +143,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onDestroy() {
         unregisterReceiver(bcastReceiver);
+        Log.i(TAG,"onDestroy");
         super.onDestroy();
     }
     public void onClose()
     {
-        Intent game_intent = new Intent(RegisterActivity.this, LoginActivity.class);
-        startActivity(game_intent);
-        Log.i(TAG, "切换到GameActivity");
+/*        Intent login_intent = new Intent(RegisterActivity.this, LoginActivity.class);
+        startActivity(login_intent);*/
+        Log.i(TAG, "切换到LoginActivity");
         finish();
     }
 }

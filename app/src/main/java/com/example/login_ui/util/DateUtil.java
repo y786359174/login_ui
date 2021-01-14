@@ -1,4 +1,4 @@
-package com.example.login_ui;
+package com.example.login_ui.util;
 
 import android.annotation.SuppressLint;
 
