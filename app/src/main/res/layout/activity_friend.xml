@@ -30,8 +30,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/FriendText"
+    <Button
+        android:id="@+id/FriendBtn"
         android:layout_width="100dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
@@ -45,8 +45,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/BackBtn" />
 
-    <TextView
-        android:id="@+id/ApplyText"
+    <Button
+        android:id="@+id/ApplyBtn"
         android:layout_width="100dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
@@ -64,6 +64,7 @@
         android:id="@+id/friendListview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#711232"
         android:layout_marginStart="116dp"
         android:layout_marginLeft="116dp"
         android:layout_marginTop="80dp"

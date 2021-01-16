@@ -23,11 +23,23 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
-            android:id="@+id/deleteBtn"
+            android:id="@+id/defuseBtn"
             android:layout_width="50dp"
             android:layout_height="30dp"
             android:text="删除"
             android:textColor="#C80000"
+            android:textSize="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <Button
+            android:id="@+id/permitBtn"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="60dp"
+            android:layout_marginRight="60dp"
+            android:text="同意"
+            android:textColor="#00C800"
             android:textSize="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />

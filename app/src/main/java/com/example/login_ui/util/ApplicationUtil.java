@@ -25,11 +25,13 @@ public class ApplicationUtil extends Application {
     }
 
     public void setmcontext(Context context){mContext=context;}
-    public void SocketSendmsg(String msgstr)
+    public void SocketSendmsg (String msgstr)
     {
-        Message msg = Message.obtain();                 //???  //话说为什么不能直接发送String
-        msg.obj = msgstr;                             //设置msg的字符串信息
-        mTransmit.mRecvHandler.sendMessage(msg);        //给mTransmit这个handle发送信息
+        if(null!=msgstr&&!msgstr.equals("")) {
+            Message msg = Message.obtain();                 //???  //话说为什么不能直接发送String
+            msg.obj = msgstr;                             //设置msg的字符串信息
+            mTransmit.mRecvHandler.sendMessage(msg);        //给mTransmit这个handle发送信息
+        }
     }
 /*
     public Socket getSocket() {

@@ -19,8 +19,8 @@ import static com.example.login_ui.util.Action.*;
 
 public class MessageTransmit implements Runnable {
     private static final String TAG = "MessageTransmit";
-//    private static final String SOCKET_IP="101.200.125.165";// Socket服务器的IP，根据实际情况修改
-    private static final String SOCKET_IP="192.168.0.18";// Socket本机局域网的IP，根据实际情况修改
+    private static final String SOCKET_IP="101.200.125.165";// Socket服务器的IP，根据实际情况修改
+//    private static final String SOCKET_IP="192.168.0.18";// Socket本机局域网的IP，根据实际情况修改
     private static final int SOCKET_PORT = 826;// Socket服务器的端口，根据实际情况修改
     private static final int TIME_OUT = 10000;
     private Socket mSocket;
@@ -91,7 +91,10 @@ public class MessageTransmit implements Runnable {
                         try2sendBroadcast(RegisterResp,SOCKETRCV_register,contentRcv);
                         try2sendBroadcast(SpeakOutResp,SOCKETRCV_game,contentRcv);
                         try2sendBroadcast(GetFriendListResp,SOCKETRCV_friend,contentRcv);
-                        try2sendBroadcast(DeleteFriendListResp,SOCKETRCV_friend,contentRcv);
+                        try2sendBroadcast(DeleteFriendResp,SOCKETRCV_friend,contentRcv);
+                        try2sendBroadcast(AddFriendResp,SOCKETRCV_friend,contentRcv);
+                        try2sendBroadcast(GetApplyListResp,SOCKETRCV_friend,contentRcv);
+                        try2sendBroadcast(ApplyFriendResp,SOCKETRCV_friend,contentRcv);
                     }
                 }catch (Exception e){
                     e.printStackTrace();

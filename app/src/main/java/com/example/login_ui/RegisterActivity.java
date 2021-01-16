@@ -8,7 +8,10 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -43,6 +46,18 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         Log.i(TAG,"onCreate");
         TipText = (TextView)findViewById(R.id.TipText);                      //提示信息text设置id
         NicknameEdit = (EditText)findViewById(R.id.NicknameEdit);              //用户名edit设置id
+        NicknameEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    //隐藏软键盘
+                    InputMethodManager imm = (InputMethodManager)v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                    return true;
+                }
+                return false;
+            }
+        });
         AccountEdit = (EditText)findViewById(R.id.AccountEdit);              //账户edit设置id
         PasswordEdit = (EditText)findViewById(R.id.PasswordEdit);            //密码edit设置id
         ConfirmPasswordEdit = (EditText)findViewById(R.id.ConfirmPasswordEdit);//确认密码edit设置id

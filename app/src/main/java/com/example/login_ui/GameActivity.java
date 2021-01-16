@@ -8,7 +8,10 @@ import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -18,7 +21,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.login_ui.util.ApplicationUtil;
 import com.example.login_ui.util.DateUtil;
 import com.example.login_ui.util.ProcessString;
-import static com.example.login_ui.util.Action.*;
+
+import static com.example.login_ui.util.Action.SOCKETRCV_game;
+import static com.example.login_ui.util.Action.SpeakOutReq;
+import static com.example.login_ui.util.Action.SpeakOutResp;
 
 
 
@@ -50,6 +56,19 @@ public class GameActivity extends AppCompatActivity implements
         SendMsgBtn = (Button)findViewById(R.id.SendMsgBtn);
         SendMsgBtn.setOnClickListener(this);                                   //发信button设置click事件listener
         SpeakOutEdit = (EditText)findViewById(R.id.SpeakOutEdit);
+        SpeakOutEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+           @Override
+           public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+               if (actionId == EditorInfo.IME_ACTION_DONE||(event.getKeyCode() == KeyEvent.KEYCODE_ENTER && v.getText() != null && event.getAction() == KeyEvent.ACTION_DOWN)) {
+                   //隐藏软键盘
+                   InputMethodManager imm = (InputMethodManager)v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                   imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                   SpeakOutSendMsg();
+                   return true;
+               }
+               return false;
+           }
+        });
         FriendBtn = (Button)findViewById(R.id.FriendBtn);
         FriendBtn.setOnClickListener(this);                                   //好友button设置click事件listener
         /****************************调用socket****************************/
@@ -81,14 +100,7 @@ public class GameActivity extends AppCompatActivity implements
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.SendMsgBtn) {
-            String sendmsgstr = SpeakOutEdit.getText().toString();
-            if(!sendmsgstr.equals("")) {
-                String msgstr = ProcessString.addstr(SpeakOutReq,appUtil.playerBean.getNickName(),sendmsgstr);
-                appUtil.SocketSendmsg(msgstr);
-                SpeakOutEdit.setText("");
-//                Isrefresh = true;
-                refreshSpeakOutText();
-            }
+            SpeakOutSendMsg();
         }
 
         if(v.getId() ==R.id.FriendBtn)
@@ -104,6 +116,17 @@ public class GameActivity extends AppCompatActivity implements
             if (offset > SpeakOutText.getHeight()) {
              SpeakOutText.scrollTo(0, offset - 8 * SpeakOutText.getLineHeight());
 
+        }
+    }
+    private void SpeakOutSendMsg()
+    {
+        String sendmsgstr = SpeakOutEdit.getText().toString();
+        if(!sendmsgstr.equals("")) {
+            String msgstr = ProcessString.addstr(SpeakOutReq,appUtil.playerBean.getNickName(),sendmsgstr);
+            appUtil.SocketSendmsg(msgstr);
+            SpeakOutEdit.setText("");
+//                Isrefresh = true;
+            refreshSpeakOutText();
         }
     }
     @Override
